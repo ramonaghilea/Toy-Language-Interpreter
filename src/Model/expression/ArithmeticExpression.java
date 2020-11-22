@@ -1,5 +1,6 @@
 package Model.expression;
 import Model.ADT.DictionaryInterface;
+import Model.ADT.HeapInterface;
 import Model.exceptions.ExpressionEvaluationException;
 import Model.expression.ExpressionInterface;
 import Model.type.IntType;
@@ -40,13 +41,13 @@ public class ArithmeticExpression implements ExpressionInterface {
         return expression2;
     }
 
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws Exception {
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<Integer, ValueInterface> heap) throws Exception {
         ValueInterface value1, value2;
+        IntValue result = null;
 
-        value1 = expression1.evaluate(table);
-
+        value1 = expression1.evaluate(table, heap);
         if (value1.getType().equals(new IntType())) {
-            value2 = expression2.evaluate(table);
+            value2 = expression2.evaluate(table, heap);
             if (value2.getType().equals(new IntType())) {
                 IntValue int1 = (IntValue) value1;
                 IntValue int2 = (IntValue) value2;
@@ -56,22 +57,22 @@ public class ArithmeticExpression implements ExpressionInterface {
                 operand2 = int2.getValue();
 
                 if (operator == 1)
-                    return new IntValue(operand1 + operand2);
+                    result = new IntValue(operand1 + operand2);
                 if (operator == 2)
-                    return new IntValue(operand1 - operand2);
+                    result = new IntValue(operand1 - operand2);
                 if (operator == 3)
-                    return new IntValue(operand1 * operand2);
+                    result = new IntValue(operand1 * operand2);
                 if (operator == 4)
                     if (operand2 == 0)
                         throw new ExpressionEvaluationException("division by zero");
                     else
-                        return new IntValue(operand1 / operand2);
+                        result = new IntValue(operand1 / operand2);
             } else
                 throw new ExpressionEvaluationException("second operand is not an integer");
         } else
             throw new ExpressionEvaluationException("first operand is not an integer");
 
-        return value1;
+        return result;
     }
 
     @Override

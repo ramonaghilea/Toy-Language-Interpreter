@@ -1,0 +1,46 @@
+ExeStack:
+(bool ok;ok=true and false)
+
+SymTable:
+
+Out:
+
+FileTable:
+
+
+
+ExeStack:
+bool ok
+ok=true and false
+
+SymTable:
+
+Out:
+
+FileTable:
+
+
+
+ExeStack:
+ok=true and false
+
+SymTable:
+ok->false
+
+Out:
+
+FileTable:
+
+
+
+ExeStack:
+
+SymTable:
+ok->false
+
+Out:
+
+FileTable:
+
+
+

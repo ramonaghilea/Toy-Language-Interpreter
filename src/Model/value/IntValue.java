@@ -1,4 +1,5 @@
 package Model.value;
+import Model.type.BoolType;
 import Model.type.IntType;
 import Model.type.TypeInterface;
 import Model.value.ValueInterface;
@@ -30,5 +31,15 @@ public class IntValue implements ValueInterface{
     @Override
     public ValueInterface deepCopy() {
         return new IntValue(this.value);
+    }
+
+    @Override
+    public boolean equals(Object anotherObject) {
+        if(anotherObject instanceof IntValue)
+        {
+            IntValue intObject = (IntValue) anotherObject;
+            return value == intObject.getValue();
+        }
+        return false;
     }
 }

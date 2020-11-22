@@ -7,4 +7,5 @@ public interface StackInterface<T>{
     void push(T element);
     boolean isEmpty();
     String toString();
+    String toStringFileFormat();
 }

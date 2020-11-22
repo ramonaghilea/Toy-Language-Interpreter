@@ -1,8 +1,6 @@
 package Model.expression;
 
-import Model.ADT.ADTDictionary;
-import Model.ADT.ADTList;
-import Model.ADT.DictionaryInterface;
+import Model.ADT.*;
 import Model.exceptions.ADTException;
 import Model.exceptions.ExpressionEvaluationException;
 import Model.value.IntValue;
@@ -21,8 +19,9 @@ class VariableExpressionTest {
             @Override
             public void execute() throws Throwable {
                 DictionaryInterface<String, ValueInterface> table = new ADTDictionary<String, ValueInterface>();
+                HeapInterface<Integer, ValueInterface> heap = new ADTHeap<Integer, ValueInterface>();
                 VariableExpression varExpr = new VariableExpression("var");
-                varExpr.evaluate(table);
+                varExpr.evaluate(table, heap);
             }
         });
     }

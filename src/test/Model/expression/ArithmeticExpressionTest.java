@@ -1,6 +1,7 @@
 package Model.expression;
 
 import Model.ADT.ADTDictionary;
+import Model.ADT.ADTHeap;
 import Model.exceptions.ExpressionEvaluationException;
 import Model.value.IntValue;
 import Model.value.ValueInterface;
@@ -17,7 +18,7 @@ class ArithmeticExpressionTest {
         ExpressionInterface ex2 = new ValueExpression(new IntValue(10));
         ArithmeticExpression arithmeticExpression = new ArithmeticExpression("*", ex1, ex2);
         IntValue result = new IntValue(20);
-        IntValue expressionResult = (IntValue) arithmeticExpression.evaluate(new ADTDictionary<String, ValueInterface>());
+        IntValue expressionResult = (IntValue) arithmeticExpression.evaluate(new ADTDictionary<String, ValueInterface>(), new ADTHeap<Integer, ValueInterface>());
         assertEquals(result.getValue(), expressionResult.getValue());
     }
     @Test
@@ -29,7 +30,7 @@ class ArithmeticExpressionTest {
                 ExpressionInterface ex1 = new ValueExpression(new IntValue(2));
                 ExpressionInterface ex2 = new ValueExpression(new IntValue(0));
                 ArithmeticExpression arithmeticExpression = new ArithmeticExpression("/", ex1, ex2);
-                arithmeticExpression.evaluate(new ADTDictionary<String, ValueInterface>());
+                arithmeticExpression.evaluate(new ADTDictionary<String, ValueInterface>(), new ADTHeap<Integer, ValueInterface>());
             }
         });
     }

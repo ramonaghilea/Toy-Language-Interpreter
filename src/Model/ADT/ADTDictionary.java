@@ -1,5 +1,6 @@
 package Model.ADT;
 import Model.ADT.DictionaryInterface;
+import Model.value.ValueInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,12 @@ public class ADTDictionary<T1, T2> implements DictionaryInterface<T1, T2>{
     public void update(T1 key, T2 value) {
         if(isDefined(key))
             this.elements.put(key, value);
+    }
+
+    @Override
+    public void delete(T1 key) {
+        if(isDefined(key))
+            this.elements.remove(key);
     }
 
     @Override
@@ -48,5 +55,25 @@ public class ADTDictionary<T1, T2> implements DictionaryInterface<T1, T2>{
         message += "}";
 
         return message;
+    }
+
+    @Override
+    public String toStringFileFormat() {
+        String message = "";
+        for(Map.Entry<T1, T2> entry : elements.entrySet())
+            message += entry.getKey().toString() + "->" + entry.getValue().toString() + "\n";
+
+        return message;
+    }
+
+    @Override
+    public Map<T1, T2> getContent() {
+//        Map<T1, T2> result = new HashMap<T1, T2>();
+//        // copy all the elements from the heap in the new map
+//        for(Map.Entry<T1, T2> entry : elements.entrySet())
+//            result.put(entry.getKey(), entry.getValue());
+//
+//        return result;
+        return this.elements;
     }
 }

@@ -1,5 +1,6 @@
 package Model.expression;
 import Model.ADT.DictionaryInterface;
+import Model.ADT.HeapInterface;
 import Model.exceptions.ExpressionEvaluationException;
 import Model.expression.ExpressionInterface;
 import Model.type.BoolType;
@@ -22,14 +23,14 @@ public class LogicExpression implements ExpressionInterface{
         else
             this.operator = 2;
     }
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws Exception
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<Integer, ValueInterface> heap) throws Exception
     {
         ValueInterface value1, value2;
 
-        value1 = expression1.evaluate(table);
+        value1 = expression1.evaluate(table, heap);
 
         if (value1.getType().equals(new BoolType())) {
-            value2 = expression2.evaluate(table);
+            value2 = expression2.evaluate(table, heap);
             if (value2.getType().equals(new BoolType())) {
                 BoolValue bool1 = (BoolValue) value1;
                 BoolValue bool2 = (BoolValue) value2;

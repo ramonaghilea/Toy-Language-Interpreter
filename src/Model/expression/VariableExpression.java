@@ -1,5 +1,6 @@
 package Model.expression;
 import Model.ADT.DictionaryInterface;
+import Model.ADT.HeapInterface;
 import Model.exceptions.ExpressionEvaluationException;
 import Model.expression.ExpressionInterface;
 import Model.value.ValueInterface;
@@ -12,7 +13,7 @@ public class VariableExpression implements ExpressionInterface{
         this.id = id;
     }
 
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws Exception
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<Integer, ValueInterface> heap) throws Exception
     {
         if(table.isDefined(id))
             return table.lookUp(id);

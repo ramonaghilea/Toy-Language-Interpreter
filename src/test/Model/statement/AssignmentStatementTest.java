@@ -12,11 +12,14 @@ import Model.expression.ValueExpression;
 import Model.type.BoolType;
 import Model.value.BoolValue;
 import Model.value.IntValue;
+import Model.value.StringValue;
 import Model.value.ValueInterface;
 import Repository.InMemoryRepository;
 import Repository.RepositoryInterface;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+
+import java.io.BufferedReader;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,16 +52,18 @@ class AssignmentStatementTest {
         StackInterface<StatementInterface> executionStack = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out = new ADTList<ValueInterface>();
+        DictionaryInterface<StringValue, BufferedReader> fileTable = new ADTDictionary<StringValue, BufferedReader>();
+        HeapInterface<Integer, ValueInterface> heap = new ADTHeap<Integer, ValueInterface>();
 
         StatementInterface origProgram = new CompoundStatement(new VariableDeclarationStatement(
                 "ok", new BoolType()), new AssignmentStatement("ok", new LogicExpression(
                         "and", new ValueExpression(new BoolValue(true)),
                         new ValueExpression(new BoolValue(false)))));
 
-        ProgramState programState = new ProgramState(executionStack, symbolTable, out, origProgram);
-        RepositoryInterface repository = new InMemoryRepository();
+        ProgramState programState = new ProgramState(executionStack, symbolTable, out, origProgram, fileTable, heap);
+        RepositoryInterface repository = new InMemoryRepository(programState, "testFile.txt");
         Controller controller = new Controller(repository);
-        controller.addProgram(programState);
+        //controller.addProgram(programState);
         controller.allSteps();
 
 //        String id = "ok";
@@ -80,14 +85,16 @@ class AssignmentStatementTest {
                 StackInterface<StatementInterface> executionStack = new ADTStack<StatementInterface>();
                 DictionaryInterface<String, ValueInterface> symbolTable = new ADTDictionary<String, ValueInterface>();
                 ListInterface<ValueInterface> out = new ADTList<ValueInterface>();
+                DictionaryInterface<StringValue, BufferedReader> fileTable = new ADTDictionary<StringValue, BufferedReader>();
+                HeapInterface<Integer, ValueInterface> heap = new ADTHeap<Integer, ValueInterface>();
 
                 StatementInterface origProgram = new CompoundStatement(new VariableDeclarationStatement(
                         "notOk", new BoolType()), new AssignmentStatement("ok", new LogicExpression(
                         "and", new ValueExpression(new BoolValue(true)),
                         new ValueExpression(new BoolValue(false)))));
 
-                ProgramState programState = new ProgramState(executionStack, symbolTable, out, origProgram);
-                RepositoryInterface repository = new InMemoryRepository();
+                ProgramState programState = new ProgramState(executionStack, symbolTable, out, origProgram, fileTable, heap);
+                RepositoryInterface repository = new InMemoryRepository(programState, "testFile.txt");
                 Controller controller = new Controller(repository);
                 controller.addProgram(programState);
                 controller.allSteps();

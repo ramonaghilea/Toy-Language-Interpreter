@@ -44,4 +44,16 @@ public class ADTStack<T> implements StackInterface<T>{
 
         return message;
     }
+
+    @Override
+    public String toStringFileFormat() {
+        Collections.reverse(this.elements);
+        Iterator<T> iterator = this.elements.iterator();
+        String message = "";
+        while(iterator.hasNext())
+            message += iterator.next().toString() + "\n";
+        Collections.reverse(this.elements);
+
+        return message;
+    }
 }

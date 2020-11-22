@@ -9,6 +9,7 @@ import Model.type.TypeInterface;
 import Model.value.BoolValue;
 import Model.value.IntValue;
 import Model.value.ValueInterface;
+import com.sun.jdi.Value;
 
 public class VariableDeclarationStatement implements StatementInterface{
     String name;
@@ -26,16 +27,18 @@ public class VariableDeclarationStatement implements StatementInterface{
         DictionaryInterface<String, ValueInterface> symbolTable = programState.getSymbolTable();
 
         if (!symbolTable.isDefined(name)) {
-            if(type.equals(new IntType()))
-            {
-                IntValue value = new IntValue(0); //default value
-                symbolTable.add(name, value);
-            }
-            else
-            {
-                BoolValue value = new BoolValue(false); // default value
-                symbolTable.add(name, value);
-            }
+            ValueInterface value = type.defaultValue();
+            symbolTable.add(name, value);
+//            if(type.equals(new IntType()))
+//            {
+//                IntValue value = new IntValue(0); //default value
+//                symbolTable.add(name, value);
+//            }
+//            else
+//            {
+//                BoolValue value = new BoolValue(false); // default value
+//                symbolTable.add(name, value);
+//            }
         }
         else throw new StatementException("the variable " + name + " has already been declared");
 

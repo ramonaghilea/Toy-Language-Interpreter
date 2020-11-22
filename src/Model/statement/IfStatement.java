@@ -1,6 +1,7 @@
 package Model.statement;
 import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
+import Model.ADT.HeapInterface;
 import Model.ProgramState;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
@@ -33,7 +34,8 @@ public class IfStatement implements StatementInterface{
     public ProgramState execute(ProgramState programState) throws Exception
     {
         DictionaryInterface<String, ValueInterface> symbolTable = programState.getSymbolTable();
-        ValueInterface value = expression.evaluate((symbolTable));
+        HeapInterface<Integer, ValueInterface> heap = programState.getHeap();
+        ValueInterface value = expression.evaluate(symbolTable, heap);
         if(value.getType().equals(new IntType()))
         {
             // cast the ValueInterface to IntValue

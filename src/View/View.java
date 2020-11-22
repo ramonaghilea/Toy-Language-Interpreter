@@ -4,8 +4,10 @@ import Controller.Controller;
 import Model.ADT.*;
 import Model.ProgramState;
 import Model.statement.StatementInterface;
+import Model.value.StringValue;
 import Model.value.ValueInterface;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -53,7 +55,10 @@ public class View {
             StackInterface<StatementInterface> executionStack = new ADTStack<StatementInterface>();
             DictionaryInterface<String, ValueInterface> symbolTable = new ADTDictionary<String, ValueInterface>();
             ListInterface<ValueInterface> out = new ADTList<ValueInterface>();
-            ProgramState chosenProgramState = new ProgramState(executionStack, symbolTable, out, chosenStatementInterface);
+            DictionaryInterface<StringValue, BufferedReader> fileTable = new ADTDictionary<StringValue, BufferedReader>();
+            HeapInterface<Integer, ValueInterface> heap = new ADTHeap<Integer, ValueInterface>();
+            ProgramState chosenProgramState = new ProgramState(executionStack, symbolTable, out,
+                    chosenStatementInterface, fileTable, heap);
             this.controller.addProgram(chosenProgramState);
         }
     }

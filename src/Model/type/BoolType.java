@@ -1,5 +1,7 @@
 package Model.type;
 import Model.type.TypeInterface;
+import Model.value.BoolValue;
+import Model.value.ValueInterface;
 
 public class BoolType implements TypeInterface{
     public boolean equals(Object anotherObject)
@@ -10,11 +12,6 @@ public class BoolType implements TypeInterface{
             return false;
     }
 
-    public boolean getDefaultValue()
-    {
-        return false;
-    }
-
     public String toString()
     {
         return "bool";
@@ -23,5 +20,10 @@ public class BoolType implements TypeInterface{
     @Override
     public TypeInterface deepCopy() {
         return new BoolType();
+    }
+
+    @Override
+    public ValueInterface defaultValue() {
+        return new BoolValue(false);
     }
 }

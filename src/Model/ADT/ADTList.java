@@ -28,6 +28,13 @@ public class ADTList<T> implements ListInterface<T> {
     }
 
     @Override
+    public T getLast() throws ADTException {
+        if(this.elements.isEmpty())
+            throw new ADTException("The list is empty");
+        return this.elements.get(elements.size() - 1);
+    }
+
+    @Override
     public String toString() {
         String message = "{";
         for(int index = 0; index < this.elements.size(); index++)
@@ -37,6 +44,15 @@ public class ADTList<T> implements ListInterface<T> {
             message = message.substring(0, message.length() - 1); //remove the last comma if there are elements
 
         message += "}";
+
+        return message;
+    }
+
+    @Override
+    public String toStringFileFormat() {
+        String message = "";
+        for(int index = 0; index < this.elements.size(); index++)
+            message += this.elements.get(index).toString() + "\n";
 
         return message;
     }

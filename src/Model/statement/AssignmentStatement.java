@@ -1,5 +1,6 @@
 package Model.statement;
 import Model.ADT.DictionaryInterface;
+import Model.ADT.HeapInterface;
 import Model.ADT.StackInterface;
 import Model.ProgramState;
 import Model.exceptions.StatementException;
@@ -28,10 +29,11 @@ public class AssignmentStatement implements StatementInterface{
     {
         StackInterface<StatementInterface> stack = programState.getStack();
         DictionaryInterface<String, ValueInterface> symbolTable = programState.getSymbolTable();
+        HeapInterface<Integer, ValueInterface> heap = programState.getHeap();
 
         if (symbolTable.isDefined(id))
         {
-            ValueInterface value = expression.evaluate(symbolTable);
+            ValueInterface value = expression.evaluate(symbolTable, heap);
             TypeInterface typeId = (symbolTable.lookUp(id)).getType();
             if(value.getType().equals(typeId))
                 symbolTable.update(id, value);

@@ -1,5 +1,6 @@
 package Model.expression;
 import Model.ADT.DictionaryInterface;
+import Model.ADT.HeapInterface;
 import Model.expression.ExpressionInterface;
 import Model.type.BoolType;
 import Model.type.IntType;
@@ -14,7 +15,7 @@ public class ValueExpression implements ExpressionInterface{
         this.value = value;
     }
 
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws Exception
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<Integer, ValueInterface> heap) throws Exception
     {
 //        if(value.getType().equals(new IntType())) {
 //            IntValue intValue = (IntValue) value;

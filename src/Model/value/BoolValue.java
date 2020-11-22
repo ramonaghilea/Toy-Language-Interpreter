@@ -1,4 +1,5 @@
 package Model.value;
+import Model.exceptions.ValueException;
 import Model.type.BoolType;
 import Model.type.TypeInterface;
 import Model.value.ValueInterface;
@@ -30,5 +31,15 @@ public class BoolValue implements ValueInterface{
     @Override
     public ValueInterface deepCopy() {
         return new BoolValue(this.value);
+    }
+
+    @Override
+    public boolean equals(Object anotherObject) {
+        if(anotherObject instanceof BoolValue)
+        {
+            BoolValue boolObject = (BoolValue) anotherObject;
+            return value == boolObject.getValue();
+        }
+        return false;
     }
 }
