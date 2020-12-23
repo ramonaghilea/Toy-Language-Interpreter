@@ -1,12 +1,15 @@
 package Model.statement;
 
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
 import Model.type.IntType;
 import Model.type.StringType;
+import Model.type.TypeInterface;
 import Model.value.IntValue;
 import Model.value.StringValue;
 import Model.value.ValueInterface;
@@ -74,7 +77,7 @@ public class readFile implements StatementInterface{
         else
             throw new StatementException("the variable is not defined in the symbol table");
 
-        return programState;
+        return null;
     }
 
     @Override
@@ -84,5 +87,18 @@ public class readFile implements StatementInterface{
         readFile copy = new readFile(copyExpression, copyVariableName);
 
         return copy;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface typeVariable = typeEnv.lookUp(this.variableName);
+        TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
+        if(typeVariable.equals(new IntType()))
+            if(typeExpression.equals(new StringType()))
+                return typeEnv;
+            else
+                throw new ExpressionEvaluationException("The expression of OPENRFILE has not the string type");
+        else
+            throw new ExpressionEvaluationException("The variable is not an integer");
     }
 }

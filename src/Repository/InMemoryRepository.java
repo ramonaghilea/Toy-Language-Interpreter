@@ -9,17 +9,17 @@ import Model.ProgramState;
 
 import java.io.*;
 import java.rmi.server.ExportException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryRepository implements RepositoryInterface{
-    private ADTList<ProgramState> programStates;
+    private List<ProgramState> programStates;
     private String logFilePath;
-    private ProgramState firstProgramState;
 
     public InMemoryRepository(ProgramState firstProgramState, String filePath)
     {
-        this.programStates = new ADTList<ProgramState>();
-        this.firstProgramState = firstProgramState; // used for writing the stack, tables and out to the file
+        this.programStates = new ArrayList<ProgramState>();
+        //this.firstProgramState = firstProgramState; // used for writing the stack, tables and out to the file
         this.logFilePath = filePath;
         this.addProgram(firstProgramState);
     }
@@ -29,23 +29,21 @@ public class InMemoryRepository implements RepositoryInterface{
         this.programStates.add(programState);
     }
 
-    @Override
-    public ProgramState getCurrentProgram() throws ADTException {
-        return this.programStates.pop();
-    }
 
     @Override
-    public void logProgramStateExec() throws Exception {
+    public void logProgramStateExec(ProgramState programState) throws RuntimeException, IOException {
         PrintWriter logFile = null;
         try{
             logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
 
-            StackInterface<StatementInterface> executionStack = firstProgramState.getStack();
-            DictionaryInterface<String, ValueInterface> symbolTable = firstProgramState.getSymbolTable();
-            ListInterface<ValueInterface> out = firstProgramState.getOut();
-            DictionaryInterface<StringValue, BufferedReader> fileTable = firstProgramState.getFileTable();
-            HeapInterface<Integer, ValueInterface> heap = firstProgramState.getHeap();
+            StackInterface<StatementInterface> executionStack = programState.getStack();
+            DictionaryInterface<String, ValueInterface> symbolTable = programState.getSymbolTable();
+            ListInterface<ValueInterface> out = programState.getOut();
+            DictionaryInterface<StringValue, BufferedReader> fileTable = programState.getFileTable();
+            HeapInterface<Integer, ValueInterface> heap = programState.getHeap();
 
+            logFile.println("Id:");
+            logFile.println(programState.getID());
             logFile.println("ExeStack:");
             logFile.println(executionStack.toStringFileFormat());
             logFile.println("SymTable:");
@@ -58,9 +56,9 @@ public class InMemoryRepository implements RepositoryInterface{
             logFile.println(heap.toStringFileFormat());
             logFile.println("\n");
         }
-        catch (FileNotFoundException exception)
+        catch (IOException exception)
         {
-            throw new Exception("the log file does not exist");
+            throw new RuntimeException("the log file does not exist");
         }
         finally {
             if(logFile != null)
@@ -79,5 +77,15 @@ public class InMemoryRepository implements RepositoryInterface{
         {
             throw new Exception("the log file does not exist");
         }
+    }
+
+    @Override
+    public List<ProgramState> getProgramStateList() {
+        return this.programStates;
+    }
+
+    @Override
+    public void setProgramStateList(List<ProgramState> newProgramStateList) {
+        this.programStates = newProgramStateList;
     }
 }

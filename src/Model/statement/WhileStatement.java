@@ -1,12 +1,15 @@
 package Model.statement;
 
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.ADT.StackInterface;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
 import Model.type.BoolType;
+import Model.type.TypeInterface;
 import Model.value.BoolValue;
 import Model.value.ValueInterface;
 
@@ -44,12 +47,21 @@ public class WhileStatement implements StatementInterface{
         }
         else throw new StatementException("condition expression is not a boolean");
 
-        return programState;
+        return null;
     }
 
     @Override
     public StatementInterface deepCopy() {
         return null;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
+        if(typeExpression.equals(new BoolType()))
+            return typeEnv;
+        else
+            throw new ExpressionEvaluationException("The condition of WHILE statement has not the bool type");
     }
 
     @Override

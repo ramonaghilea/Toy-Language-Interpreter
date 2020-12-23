@@ -1,8 +1,10 @@
 package Model.statement;
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.ADT.StackInterface;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
 import Model.statement.StatementInterface;
@@ -42,7 +44,7 @@ public class AssignmentStatement implements StatementInterface{
         }
         else throw new StatementException("the used variable " + id + " was not declared before");
 
-        return programState;
+        return null;
     }
 
     @Override
@@ -52,6 +54,16 @@ public class AssignmentStatement implements StatementInterface{
         AssignmentStatement copy = new AssignmentStatement(copyId, copyExpression);
 
         return copy;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface typeVariable = typeEnv.lookUp(this.id);
+        TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
+        if(typeVariable.equals(typeExpression))
+            return typeEnv;
+        else
+            throw new ExpressionEvaluationException("ASSIGNMENT statement: right hand side and left hand side have different types");
     }
 
 }

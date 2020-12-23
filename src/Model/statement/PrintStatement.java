@@ -1,11 +1,14 @@
 package Model.statement;
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.ADT.ListInterface;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
 import Model.statement.StatementInterface;
+import Model.type.TypeInterface;
 import Model.value.ValueInterface;
 
 import java.util.regex.PatternSyntaxException;
@@ -31,7 +34,7 @@ public class PrintStatement implements StatementInterface{
 
         out.add(this.expression.evaluate(table, heap));
 
-        return programState;
+        return null;
     }
 
     @Override
@@ -40,5 +43,11 @@ public class PrintStatement implements StatementInterface{
         PrintStatement copy = new PrintStatement(copyExpression);
 
         return copy;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        this.expression.typeCheck(typeEnv);
+        return typeEnv;
     }
 }

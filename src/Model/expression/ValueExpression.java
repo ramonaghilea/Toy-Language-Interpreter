@@ -1,9 +1,12 @@
 package Model.expression;
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.expression.ExpressionInterface;
 import Model.type.BoolType;
 import Model.type.IntType;
+import Model.type.TypeInterface;
 import Model.value.IntValue;
 import Model.value.ValueInterface;
 
@@ -35,6 +38,11 @@ public class ValueExpression implements ExpressionInterface{
         ValueExpression copy = new ValueExpression(copyValue);
 
         return copy;
+    }
+
+    @Override
+    public TypeInterface typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        return this.value.getType();
     }
 
     @Override

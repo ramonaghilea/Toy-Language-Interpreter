@@ -1,7 +1,10 @@
 package Model.statement;
+import Model.ADT.ADTDictionary;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.statement.StatementInterface;
+import Model.type.TypeInterface;
 
 public class NoOperationStatement implements StatementInterface{
 
@@ -9,7 +12,7 @@ public class NoOperationStatement implements StatementInterface{
 
     @Override
     public ProgramState execute(ProgramState programState) throws StatementException {
-        return programState;
+        return null;
     }
 
     @Override
@@ -17,6 +20,11 @@ public class NoOperationStatement implements StatementInterface{
         NoOperationStatement copy = new NoOperationStatement();
 
         return copy;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        return typeEnv;
     }
 
     @Override

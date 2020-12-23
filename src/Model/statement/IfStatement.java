@@ -3,11 +3,13 @@ import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
 import Model.statement.StatementInterface;
 import Model.type.BoolType;
 import Model.type.IntType;
+import Model.type.TypeInterface;
 import Model.value.BoolValue;
 import Model.value.IntValue;
 import Model.value.ValueInterface;
@@ -61,7 +63,7 @@ public class IfStatement implements StatementInterface{
             else
                 elseStatement.execute(programState);
         }
-        return programState;
+        return null;
     }
 
     @Override
@@ -72,5 +74,18 @@ public class IfStatement implements StatementInterface{
         IfStatement copy = new IfStatement(copyExpression, copyThenStatement, copyElseStatement);
 
         return copy;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
+        if(typeExpression.equals(new BoolType()))
+        {
+            this.thenStatement.typeCheck((ADTDictionary<String, TypeInterface>) typeEnv.deepCopy());
+            this.elseStatement.typeCheck((ADTDictionary<String, TypeInterface>) typeEnv.deepCopy());
+
+            return typeEnv;
+        }
+        else throw new ExpressionEvaluationException("The condition of IF statement has not the type bool");
     }
 }

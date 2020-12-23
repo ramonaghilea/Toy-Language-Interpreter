@@ -14,4 +14,5 @@ public interface DictionaryInterface<T1, T2> {
     String toStringFileFormat();
 
     Map<T1, T2> getContent();
+    DictionaryInterface<T1, T2> deepCopy();
 }

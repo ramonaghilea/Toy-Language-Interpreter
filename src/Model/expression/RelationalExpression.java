@@ -1,9 +1,12 @@
 package Model.expression;
 
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.exceptions.ExpressionEvaluationException;
+import Model.type.BoolType;
 import Model.type.IntType;
+import Model.type.TypeInterface;
 import Model.value.BoolValue;
 import Model.value.IntValue;
 import Model.value.ValueInterface;
@@ -89,6 +92,21 @@ public class RelationalExpression implements ExpressionInterface{
         RelationalExpression copy = new RelationalExpression(operatorAsString, copyExpression1, copyExpression2);
 
         return copy;
+    }
+
+    @Override
+    public TypeInterface typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface type1, type2;
+        type1 = this.expression1.typeCheck(typeEnv);
+        type2 = this.expression2.typeCheck(typeEnv);
+
+        if(type1.equals(new IntType()))
+            if(type2.equals(new IntType()))
+                return new BoolType();
+            else
+                throw new ExpressionEvaluationException("second operand is not an integer");
+        else
+            throw new ExpressionEvaluationException("first operand is not an integer");
     }
 
     @Override

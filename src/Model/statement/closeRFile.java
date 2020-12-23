@@ -1,11 +1,15 @@
 package Model.statement;
 
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
+import Model.type.BoolType;
 import Model.type.StringType;
+import Model.type.TypeInterface;
 import Model.value.StringValue;
 import Model.value.ValueInterface;
 
@@ -51,7 +55,7 @@ public class closeRFile implements StatementInterface{
         else
             throw new StatementException("the type is not string");
 
-        return programState;
+        return null;
     }
 
     @Override
@@ -60,5 +64,14 @@ public class closeRFile implements StatementInterface{
         closeRFile copy = new closeRFile(copyExpression);
 
         return copy;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
+        if(typeExpression.equals(new StringType()))
+            return typeEnv;
+        else
+            throw new ExpressionEvaluationException("The expression of CLOSERFILE has not the string type");
     }
 }

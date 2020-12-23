@@ -76,4 +76,15 @@ public class ADTDictionary<T1, T2> implements DictionaryInterface<T1, T2>{
 //        return result;
         return this.elements;
     }
+
+    @Override
+    public DictionaryInterface<T1, T2> deepCopy() {
+        DictionaryInterface<T1, T2> copyDictionary = new ADTDictionary<T1, T2>();
+//        for(Map.Entry<T1, T2> entry : elements.entrySet())
+//            copyDictionary.add(entry.getKey(), entry.getValue());
+        for(T1 elem: elements.keySet())
+            copyDictionary.add(elem, elements.get(elem));
+
+        return copyDictionary;
+    }
 }

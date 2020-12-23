@@ -6,6 +6,7 @@ import Model.statement.*;
 import Model.type.BoolType;
 import Model.type.IntType;
 import Model.type.ReferenceType;
+import Model.type.TypeInterface;
 import Model.value.BoolValue;
 import Model.value.IntValue;
 import Model.value.StringValue;
@@ -34,6 +35,15 @@ public class Main {
         StatementInterface example1 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
                 new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(2))),
                         new PrintStatement(new VariableExpression("v"))));
+
+        ADTDictionary<String, TypeInterface> typeEnv1 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example1.typeCheck(typeEnv1);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
         StackInterface<StatementInterface> executionStack1 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable1 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out1 = new ADTList<ValueInterface>();
@@ -54,6 +64,15 @@ public class Main {
                                         new ArithmeticExpression("+", new VariableExpression("a"),
                                                 new ValueExpression(new IntValue(1)))),
                                         new PrintStatement(new VariableExpression("b"))))));
+
+        ADTDictionary<String, TypeInterface> typeEnv2 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example2.typeCheck(typeEnv2);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
         StackInterface<StatementInterface> executionStack2 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable2 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out2 = new ADTList<ValueInterface>();
@@ -72,6 +91,15 @@ public class Main {
                                         new AssignmentStatement("v",new ValueExpression(new IntValue(2))),
                                         new AssignmentStatement("v", new ValueExpression(new IntValue(3)))),
                                         new PrintStatement(new VariableExpression("v"))))));
+
+        ADTDictionary<String, TypeInterface> typeEnv3 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example3.typeCheck(typeEnv3);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
         StackInterface<StatementInterface> executionStack3 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable3 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out3 = new ADTList<ValueInterface>();
@@ -109,6 +137,15 @@ public class Main {
                                 new CompoundStatement(new NewStatement("a", new VariableExpression("v")),
                                         new CompoundStatement(new PrintStatement(new VariableExpression("v")),
                                                 new PrintStatement(new VariableExpression("a")))))));
+
+        ADTDictionary<String, TypeInterface> typeEnv4 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example4.typeCheck(typeEnv4);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
         StackInterface<StatementInterface> executionStack4 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable4 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out4 = new ADTList<ValueInterface>();
@@ -128,6 +165,15 @@ public class Main {
                                                 new PrintStatement(new ArithmeticExpression("+",
                                                         new readHeapExpression(new readHeapExpression(new VariableExpression("a"))),
                                                         new ValueExpression(new IntValue(5)))))))));
+
+        ADTDictionary<String, TypeInterface> typeEnv5 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example5.typeCheck(typeEnv5);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
         StackInterface<StatementInterface> executionStack5 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable5 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out5 = new ADTList<ValueInterface>();
@@ -146,6 +192,15 @@ public class Main {
                                         new PrintStatement(new ArithmeticExpression("+",
                                                 new readHeapExpression(new VariableExpression("v")),
                                                 new ValueExpression(new IntValue(5))))))));
+
+        ADTDictionary<String, TypeInterface> typeEnv6 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example6.typeCheck(typeEnv6);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
         StackInterface<StatementInterface> executionStack6 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable6 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out6 = new ADTList<ValueInterface>();
@@ -163,6 +218,15 @@ public class Main {
                                 new CompoundStatement(new NewStatement("a", new VariableExpression("v")),
                                         new CompoundStatement(new NewStatement("v", new ValueExpression(new IntValue(30))),
                                                 new PrintStatement(new readHeapExpression(new readHeapExpression(new VariableExpression("a")))))))));
+
+        ADTDictionary<String, TypeInterface> typeEnv7 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example7.typeCheck(typeEnv7);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
         StackInterface<StatementInterface> executionStack7 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable7 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out7 = new ADTList<ValueInterface>();
@@ -183,6 +247,15 @@ public class Main {
                                         new AssignmentStatement("v", new ArithmeticExpression("-",
                                                 new VariableExpression("v"), new ValueExpression(new IntValue(1)))))),
                                 new PrintStatement(new VariableExpression("v")))));
+
+        ADTDictionary<String, TypeInterface> typeEnv8 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example8.typeCheck(typeEnv8);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
         StackInterface<StatementInterface> executionStack8 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable8 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out8 = new ADTList<ValueInterface>();
@@ -192,6 +265,48 @@ public class Main {
         RepositoryInterface repository8 = new InMemoryRepository(programState8, "log8.txt");
         Controller controller8 = new Controller(repository8);
         //controller8.allSteps();
+
+        // int v; Ref int a; v=10;new(a,22);
+        // fork(wH(a,30);v=32;print(v);print(rH(a)));
+        // print(v);print(rH(a))
+//        StatementInterface example9 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
+//                new CompoundStatement(new VariableDeclarationStatement("a", new ReferenceType(new IntType())),
+//                    new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(10))),
+//                            new CompoundStatement(new NewStatement("a", new ValueExpression(new IntValue(22))),
+//                                    new CompoundStatement(new ForkStatement(new CompoundStatement(new writeHeapStatement("a", new ValueExpression(new IntValue(30))),
+//                                                                                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(32))),
+//                                                                                        new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+//                                                                                                new PrintStatement(new readHeapExpression(new VariableExpression("a"))))))),
+//                                            new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+//                                                    new PrintStatement(new readHeapExpression(new VariableExpression("a")))))))));
+        StatementInterface example9 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
+                new CompoundStatement(new VariableDeclarationStatement("a", new ReferenceType(new IntType())),
+                        new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(10))),
+                                new CompoundStatement(new NewStatement("a", new ValueExpression(new IntValue(22))),
+                                        new CompoundStatement(new ForkStatement(new CompoundStatement(new writeHeapStatement("a", new ValueExpression(new IntValue(30))),
+                                                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(32))),
+                                                        new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                                new PrintStatement(new readHeapExpression(new VariableExpression("a"))))))),
+                                                new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                        new PrintStatement(new readHeapExpression(new VariableExpression("a")))))))));
+
+        ADTDictionary<String, TypeInterface> typeEnv9 = new ADTDictionary<String, TypeInterface>();
+        try {
+            example9.typeCheck(typeEnv9);
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
+        StackInterface<StatementInterface> executionStack9 = new ADTStack<StatementInterface>();
+        DictionaryInterface<String, ValueInterface> symbolTable9 = new ADTDictionary<String, ValueInterface>();
+        ListInterface<ValueInterface> out9 = new ADTList<ValueInterface>();
+        DictionaryInterface<StringValue, BufferedReader> fileTable9 = new ADTDictionary<StringValue, BufferedReader>();
+        HeapInterface<Integer, ValueInterface> heap9 = new ADTHeap<Integer, ValueInterface>();
+        ProgramState programState9 = new ProgramState(executionStack9, symbolTable9, out9, example9, fileTable9, heap9);
+        RepositoryInterface repository9 = new InMemoryRepository(programState9, "log9.txt");
+        Controller controller9 = new Controller(repository9);
+        //controller9.allSteps();
 
         // Assignment A4
         TextMenu menu = new TextMenu();
@@ -204,6 +319,7 @@ public class Main {
         menu.addCommand(new RunExample("6", example6.toString(), controller6));
         menu.addCommand(new RunExample("7", example7.toString(), controller7));
         menu.addCommand((new RunExample("8", example8.toString(), controller8)));
+        menu.addCommand((new RunExample("9", example9.toString(), controller9)));
         menu.show();
 
         // Assignment A3

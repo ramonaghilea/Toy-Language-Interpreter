@@ -1,8 +1,10 @@
 package Model.statement;
 
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
 import Model.type.IntType;
@@ -10,6 +12,8 @@ import Model.type.ReferenceType;
 import Model.type.TypeInterface;
 import Model.value.ReferenceValue;
 import Model.value.ValueInterface;
+
+import java.sql.Ref;
 
 public class writeHeapStatement implements StatementInterface{
     private String variableName;
@@ -60,7 +64,7 @@ public class writeHeapStatement implements StatementInterface{
         }
         else throw new StatementException("the variable is not defined in the symbol table");
 
-        return programState;
+        return null;
     }
 
     @Override
@@ -75,5 +79,16 @@ public class writeHeapStatement implements StatementInterface{
         writeHeapStatement copy = new writeHeapStatement(copyVariableName, copyExpression);
 
         return copy;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface typeVariable = typeEnv.lookUp(this.variableName);
+        TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
+        //if(typeVariable instanceof ReferenceType)
+        if(typeVariable.equals(new ReferenceType(typeExpression)))
+            return typeEnv;
+        else
+            throw new ExpressionEvaluationException("WRITEHEAP statement: right hand side and left hand side have different types");
     }
 }

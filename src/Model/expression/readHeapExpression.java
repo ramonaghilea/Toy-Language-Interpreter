@@ -1,11 +1,13 @@
 package Model.expression;
 
+import Model.ADT.ADTDictionary;
 import Model.ADT.ADTHeap;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.exceptions.ExpressionEvaluationException;
 import Model.type.IntType;
 import Model.type.ReferenceType;
+import Model.type.TypeInterface;
 import Model.value.ReferenceValue;
 import Model.value.ValueInterface;
 
@@ -49,5 +51,17 @@ public class readHeapExpression implements ExpressionInterface{
         readHeapExpression copy = new readHeapExpression(copyExpression);
 
         return copy;
+    }
+
+    @Override
+    public TypeInterface typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface type = this.expression.typeCheck(typeEnv);
+        if(type instanceof ReferenceType)
+        {
+            ReferenceType referenceType = (ReferenceType) type;
+            return referenceType.getInnerType();
+        }
+        else
+            throw new ExpressionEvaluationException("the readHeap argument is not a reference type");
     }
 }

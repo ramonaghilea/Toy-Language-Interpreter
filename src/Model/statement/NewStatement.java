@@ -1,9 +1,11 @@
 package Model.statement;
 
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.ADT.StackInterface;
 import Model.ProgramState;
+import Model.exceptions.ExpressionEvaluationException;
 import Model.exceptions.StatementException;
 import Model.expression.ExpressionInterface;
 import Model.type.IntType;
@@ -14,6 +16,7 @@ import Model.value.StringValue;
 import Model.value.ValueInterface;
 
 import java.io.BufferedReader;
+import java.lang.reflect.Type;
 
 public class NewStatement implements StatementInterface{
     private String variableName;
@@ -60,7 +63,7 @@ public class NewStatement implements StatementInterface{
         else
             throw new StatementException("The variable name is not defined in the symbol table");
 
-        return programState;
+        return null;
     }
 
     @Override
@@ -76,5 +79,15 @@ public class NewStatement implements StatementInterface{
         NewStatement copy = new NewStatement(copyVariableName, copyExpression);
 
         return copy;
+    }
+
+    @Override
+    public ADTDictionary<String, TypeInterface> typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface typeVariable = typeEnv.lookUp(this.variableName);
+        TypeInterface typeExpression = this.expression.typeCheck(typeEnv);
+        if(typeVariable.equals(new ReferenceType(typeExpression)))
+            return typeEnv;
+        else
+            throw new ExpressionEvaluationException("NEW statement: right hand side and left hand side have different types");
     }
 }

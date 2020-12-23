@@ -1,9 +1,11 @@
 package Model.expression;
+import Model.ADT.ADTDictionary;
 import Model.ADT.DictionaryInterface;
 import Model.ADT.HeapInterface;
 import Model.exceptions.ExpressionEvaluationException;
 import Model.expression.ExpressionInterface;
 import Model.type.IntType;
+import Model.type.TypeInterface;
 import Model.value.ValueInterface;
 import Model.value.IntValue;
 
@@ -93,6 +95,21 @@ public class ArithmeticExpression implements ExpressionInterface {
         ArithmeticExpression copy = new ArithmeticExpression(operatorAsString, copyExpression1, copyExpression2);
 
         return copy;
+    }
+
+    @Override
+    public TypeInterface typeCheck(ADTDictionary<String, TypeInterface> typeEnv) throws ExpressionEvaluationException {
+        TypeInterface type1, type2;
+        type1 = this.expression1.typeCheck(typeEnv);
+        type2 = this.expression2.typeCheck(typeEnv);
+
+        if(type1.equals(new IntType()))
+            if(type2.equals(new IntType()))
+                return new IntType();
+            else
+                throw new ExpressionEvaluationException("second operand is not an integer");
+        else
+            throw new ExpressionEvaluationException("first operand is not an integer");
     }
 
     @Override
