@@ -16,7 +16,8 @@ public class ADTStack<T> implements StackInterface<T>{
     public T pop() throws ADTException{
         if(this.isEmpty())
             throw new ADTException("The stack is empty");
-        return this.elements.remove(elements.size() - 1);
+        //return this.elements.remove(elements.size() - 1);
+        return this.elements.remove(0);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class ADTStack<T> implements StackInterface<T>{
 
     @Override
     public String toString() {
-        Collections.reverse(this.elements);
+        //Collections.reverse(this.elements);
         Iterator<T> iterator = this.elements.iterator();
         String message = "{";
         while(iterator.hasNext())
@@ -40,20 +41,30 @@ public class ADTStack<T> implements StackInterface<T>{
         if(this.elements.size() > 0)
             message = message.substring(0, message.length() - 3); //remove the last | and the spaces
         message += "}";
-        Collections.reverse(this.elements);
+        //Collections.reverse(this.elements);
 
         return message;
     }
 
     @Override
     public String toStringFileFormat() {
-        Collections.reverse(this.elements);
+        //Collections.reverse(this.elements);
         Iterator<T> iterator = this.elements.iterator();
         String message = "";
         while(iterator.hasNext())
             message += iterator.next().toString() + "\n";
-        Collections.reverse(this.elements);
+        //Collections.reverse(this.elements);
 
         return message;
+    }
+
+    @Override
+    public ArrayList<T> getContent() {
+        return this.elements;
+    }
+
+    @Override
+    public void setContent(List<T> content) {
+        this.elements = (ArrayList<T>) content;
     }
 }

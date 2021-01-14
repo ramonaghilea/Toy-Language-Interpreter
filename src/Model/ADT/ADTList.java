@@ -56,4 +56,9 @@ public class ADTList<T> implements ListInterface<T> {
 
         return message;
     }
+
+    @Override
+    public ArrayList<T> getContent() {
+        return this.elements;
+    }
 }

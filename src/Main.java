@@ -37,13 +37,7 @@ public class Main {
                         new PrintStatement(new VariableExpression("v"))));
 
         ADTDictionary<String, TypeInterface> typeEnv1 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example1.typeCheck(typeEnv1);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example1.typeCheck(typeEnv1);
         StackInterface<StatementInterface> executionStack1 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable1 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out1 = new ADTList<ValueInterface>();
@@ -66,13 +60,7 @@ public class Main {
                                         new PrintStatement(new VariableExpression("b"))))));
 
         ADTDictionary<String, TypeInterface> typeEnv2 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example2.typeCheck(typeEnv2);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example2.typeCheck(typeEnv2);
         StackInterface<StatementInterface> executionStack2 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable2 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out2 = new ADTList<ValueInterface>();
@@ -93,13 +81,7 @@ public class Main {
                                         new PrintStatement(new VariableExpression("v"))))));
 
         ADTDictionary<String, TypeInterface> typeEnv3 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example3.typeCheck(typeEnv3);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example3.typeCheck(typeEnv3);
         StackInterface<StatementInterface> executionStack3 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable3 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out3 = new ADTList<ValueInterface>();
@@ -139,13 +121,7 @@ public class Main {
                                                 new PrintStatement(new VariableExpression("a")))))));
 
         ADTDictionary<String, TypeInterface> typeEnv4 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example4.typeCheck(typeEnv4);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example4.typeCheck(typeEnv4);
         StackInterface<StatementInterface> executionStack4 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable4 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out4 = new ADTList<ValueInterface>();
@@ -167,13 +143,7 @@ public class Main {
                                                         new ValueExpression(new IntValue(5)))))))));
 
         ADTDictionary<String, TypeInterface> typeEnv5 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example5.typeCheck(typeEnv5);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example5.typeCheck(typeEnv5);
         StackInterface<StatementInterface> executionStack5 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable5 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out5 = new ADTList<ValueInterface>();
@@ -194,13 +164,7 @@ public class Main {
                                                 new ValueExpression(new IntValue(5))))))));
 
         ADTDictionary<String, TypeInterface> typeEnv6 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example6.typeCheck(typeEnv6);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example6.typeCheck(typeEnv6);
         StackInterface<StatementInterface> executionStack6 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable6 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out6 = new ADTList<ValueInterface>();
@@ -220,13 +184,7 @@ public class Main {
                                                 new PrintStatement(new readHeapExpression(new readHeapExpression(new VariableExpression("a")))))))));
 
         ADTDictionary<String, TypeInterface> typeEnv7 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example7.typeCheck(typeEnv7);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example7.typeCheck(typeEnv7);
         StackInterface<StatementInterface> executionStack7 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable7 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out7 = new ADTList<ValueInterface>();
@@ -249,13 +207,7 @@ public class Main {
                                 new PrintStatement(new VariableExpression("v")))));
 
         ADTDictionary<String, TypeInterface> typeEnv8 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example8.typeCheck(typeEnv8);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example8.typeCheck(typeEnv8);
         StackInterface<StatementInterface> executionStack8 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable8 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out8 = new ADTList<ValueInterface>();
@@ -291,13 +243,7 @@ public class Main {
                                                         new PrintStatement(new readHeapExpression(new VariableExpression("a")))))))));
 
         ADTDictionary<String, TypeInterface> typeEnv9 = new ADTDictionary<String, TypeInterface>();
-        try {
-            example9.typeCheck(typeEnv9);
-        }
-        catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        example9.typeCheck(typeEnv9);
         StackInterface<StatementInterface> executionStack9 = new ADTStack<StatementInterface>();
         DictionaryInterface<String, ValueInterface> symbolTable9 = new ADTDictionary<String, ValueInterface>();
         ListInterface<ValueInterface> out9 = new ADTList<ValueInterface>();

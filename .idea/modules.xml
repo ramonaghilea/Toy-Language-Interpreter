@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Interpreter_A3.iml" filepath="$PROJECT_DIR$/Interpreter_A3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Interpreter_A6_GUI.iml" filepath="$PROJECT_DIR$/Interpreter_A6_GUI.iml" />
     </modules>
   </component>
 </project>

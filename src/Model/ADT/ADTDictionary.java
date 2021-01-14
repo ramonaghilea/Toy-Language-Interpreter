@@ -2,6 +2,7 @@ package Model.ADT;
 import Model.ADT.DictionaryInterface;
 import Model.value.ValueInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +48,10 @@ public class ADTDictionary<T1, T2> implements DictionaryInterface<T1, T2>{
     public String toString() {
         String message = "{";
         for(Map.Entry<T1, T2> entry : elements.entrySet())
-            message += entry.getKey().toString() + "->" + entry.getValue().toString() + ",";
+            if(entry.getValue() != null)
+                message += entry.getKey().toString() + "->" + entry.getValue().toString() + ",";
+            else
+                message += entry.getKey().toString();
 
         if(this.elements.size() > 0)
             message = message.substring(0, message.length() - 1); //remove the last comma if there are elements
@@ -61,7 +65,10 @@ public class ADTDictionary<T1, T2> implements DictionaryInterface<T1, T2>{
     public String toStringFileFormat() {
         String message = "";
         for(Map.Entry<T1, T2> entry : elements.entrySet())
-            message += entry.getKey().toString() + "->" + entry.getValue().toString() + "\n";
+            if(entry.getValue() != null)
+                message += entry.getKey().toString() + "->" + entry.getValue().toString() + "\n";
+            else
+                message += entry.getKey().toString() + "\n";
 
         return message;
     }
@@ -86,5 +93,12 @@ public class ADTDictionary<T1, T2> implements DictionaryInterface<T1, T2>{
             copyDictionary.add(elem, elements.get(elem));
 
         return copyDictionary;
+    }
+
+    @Override
+    public ArrayList<T1> getKeysContent() {
+        ArrayList<T1> result = new ArrayList<T1>();
+        result.addAll(this.elements.keySet());
+        return result;
     }
 }

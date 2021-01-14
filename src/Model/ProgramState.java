@@ -7,10 +7,8 @@ import Model.value.ReferenceValue;
 import Model.value.StringValue;
 import Model.value.ValueInterface;
 
-import java.io.BufferedReader;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProgramState {
@@ -42,13 +40,14 @@ public class ProgramState {
         this.fileTable = fileTable;
         this.heap = heap;
         this.originalProgram = originalProgram;
-        this.executionStack.push(originalProgram);
+        //this.executionStack.push(originalProgram);
+        this.decomposeOriginalProgram();
         this.id = generateNewId();
     }
 
     public static synchronized int generateNewId()
     {
-        // generates a differend id for every instance of ProgramState
+        // generates a different id for every instance of ProgramState
         int newId = nextId;
         nextId += 1;
         return newId;
@@ -81,8 +80,8 @@ public class ProgramState {
     public void setHeap(HeapInterface<Integer, ValueInterface> heap) { this.heap = heap; }
     public void setID(int id) { this.id = id; }
 
-    public void addFile(String fileName)
-    {
+    public void addFile(String fileName) {
+        //this.fileTable.add(new StringValue(fileName), new BufferedReader(new FileReader(fileName)));
         this.fileTable.add(new StringValue(fileName), null);
     }
 
@@ -96,10 +95,43 @@ public class ProgramState {
         if(this.executionStack.isEmpty())
             throw new Exception("program state stack is empty");
         StatementInterface currentStatement = executionStack.pop();
-
+//        if(currentStatement instanceof CompoundStatement)
+//        {
+//            currentStatement.execute(this);
+//            currentStatement = executionStack.pop();
+//        }
         return currentStatement.execute(this);
     }
 
+    public String originalProgramToString()
+    {
+        return this.originalProgram.toString();
+    }
+
+    private void decomposeOriginalProgram()
+    {
+        List<StatementInterface> content = new ArrayList<StatementInterface>();
+        StatementInterface originalProgramCopy = this.originalProgram;
+        while(originalProgramCopy instanceof CompoundStatement)
+        {
+            //System.out.println(originalProgramCopy);
+            StatementInterface first = ((CompoundStatement) originalProgramCopy).getFirstStatement();
+            content.add(first);
+            if(((CompoundStatement) originalProgramCopy).getSecondStatement() instanceof CompoundStatement)
+                originalProgramCopy = ((CompoundStatement) originalProgramCopy).getSecondStatement();
+            else {
+                StatementInterface second = ((CompoundStatement) originalProgramCopy).getSecondStatement();
+                content.add(second);
+                break;
+            }
+            //System.out.println(first);
+            //System.out.println(originalProgramCopy);
+        }
+        //Collections.reverse(content);
+        this.executionStack.setContent(content);
+
+        System.out.println(this.executionStack);
+    }
     @Override
     public String toString() {
         String message = "";

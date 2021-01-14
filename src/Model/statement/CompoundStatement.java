@@ -18,6 +18,9 @@ public class CompoundStatement implements StatementInterface{
         this.second = second;
     }
 
+    public StatementInterface getFirstStatement() { return this.first; }
+    public StatementInterface getSecondStatement() { return this.second; }
+
     public String toString()
     {
         return "(" + first.toString() + ";" + second.toString() + ")";

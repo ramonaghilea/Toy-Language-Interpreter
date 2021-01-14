@@ -22,6 +22,7 @@ public class InMemoryRepository implements RepositoryInterface{
         //this.firstProgramState = firstProgramState; // used for writing the stack, tables and out to the file
         this.logFilePath = filePath;
         this.addProgram(firstProgramState);
+        firstProgramState.addFile(filePath);
     }
 
     @Override
@@ -87,5 +88,11 @@ public class InMemoryRepository implements RepositoryInterface{
     @Override
     public void setProgramStateList(List<ProgramState> newProgramStateList) {
         this.programStates = newProgramStateList;
+    }
+
+    @Override
+    public String getOriginalProgramToString()
+    {
+        return this.programStates.get(0).toString();
     }
 }

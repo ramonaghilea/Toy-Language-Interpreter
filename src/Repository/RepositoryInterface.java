@@ -14,4 +14,5 @@ public interface RepositoryInterface {
 
     List<ProgramState> getProgramStateList();
     void setProgramStateList(List<ProgramState> newProgramStateList);
+    public String getOriginalProgramToString();
 }

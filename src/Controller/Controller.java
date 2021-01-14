@@ -8,6 +8,7 @@ import Model.value.ReferenceValue;
 import Model.value.ValueInterface;
 import Repository.RepositoryInterface;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,41 @@ public class Controller {
         this.displayFlag = boolValue;
     }
 
+    public void setExecutor(ExecutorService executor) { this.executor = executor; }
+
+    public int getNumberProgramStates()
+    {
+        return this.repository.getProgramStateList().size();
+    }
+
+    public void clearLogFileRepository() throws Exception {
+        this.repository.clearLogFile();
+    }
+    public List<Integer> getProgramStatesIds()
+    {
+        List<ProgramState> listProgramStates = this.repository.getProgramStateList();
+        List<Integer> result = new ArrayList<Integer>();
+        for(ProgramState program : listProgramStates)
+            result.add(program.getID());
+
+        return result;
+    }
+    public ProgramState getProgramStateById(Integer Id)
+    {
+        List<ProgramState> listProgramStates = this.repository.getProgramStateList();
+        for(ProgramState program : listProgramStates)
+            if(program.getID() == Id)
+                return program;
+        return null;
+    }
+    public List<ProgramState> getProgramStateList()
+    {
+        return this.repository.getProgramStateList();
+    }
+
+    public void setProgramStateList(List<ProgramState> newProgramStateList) {
+        this.repository.setProgramStateList(newProgramStateList);
+    }
 //    public List<Integer> getAddressFromSymbolTable(Collection<ValueInterface> symbolTableValues)
 //    {
 //        return symbolTableValues.stream().filter(v->v instanceof ReferenceValue).map(v->{ReferenceValue v1 = (ReferenceValue)v; return v1.getAddress();}).collect(Collectors.toList());
@@ -62,7 +98,10 @@ public class Controller {
     {
         return inputProgramList.stream().filter(p -> p.isNotCompleted()).collect(Collectors.toList());
     }
-
+    public String getOriginalProgramToString()
+    {
+        return this.repository.getOriginalProgramToString();
+    }
 //    public void allSteps() throws Exception
 //    {
 //        ProgramState programState = this.repository.getCurrentProgram();

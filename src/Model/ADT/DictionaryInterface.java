@@ -2,6 +2,7 @@ package Model.ADT;
 
 import Model.value.ValueInterface;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public interface DictionaryInterface<T1, T2> {
@@ -15,4 +16,6 @@ public interface DictionaryInterface<T1, T2> {
 
     Map<T1, T2> getContent();
     DictionaryInterface<T1, T2> deepCopy();
+
+    ArrayList<T1> getKeysContent();
 }
